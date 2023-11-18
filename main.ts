@@ -18,8 +18,6 @@ const mongo_uri: string | undefined = env.MONGO_URI ||
   Deno.env.get("MONGO_URI");
 const db_name: string | undefined = env.DB_NAME || Deno.env.get("DB_NAME");
 
-//CTRL+SHIF+P ->deno initialize
-//CTRL+SHIF+P ->deno initialize
 if (!mongo_usr || !mongo_pwd || !mongo_uri || !db_name) {
   console.log("Missing env values");
   Deno.exit(1);
