@@ -4,10 +4,9 @@ import { Request, Response } from "npm:express@4.18.2";
 import { cliente } from "./types.ts";
 import clienteSchema from "./cliente.ts";
 import { clienteModelType } from "./cliente.ts";
-import { clientModelType } from "../Practica2/client.ts";
 
 export const ingresarDinero = async (
-  req: Request<{ id: string; amount: string }, {}, clientModelType>,
+  req: Request<{ id: string; amount: string }, {}, clienteModelType>,
   res: Response<cliente | { error: unknown }>,
 ) => {
   const id = req.params.id;
