@@ -1,10 +1,11 @@
 import express from "npm:express@4.18.2";
 import mongoose from "npm:mongoose@7.6.3";
 
-import deleteCliente from "./deleteCliente.ts";
+import { deleteCliente } from "./deleteCliente.ts";
 import addCliente from "./addCliente.ts";
 import addGestor from "./addGestor.ts";
 import addHipoteca from "./addHipoteca.ts";
+import { ingresarDinero } from "./ingresarDinero.ts";
 
 import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
 
@@ -32,7 +33,8 @@ app
   .post("/addCliente", addCliente)
   //no pilla datos opcionales, revisar contructor
   .post("/addGestor", addGestor)
-  .post("/addHipoteca", addHipoteca);
+  .post("/addHipoteca", addHipoteca)
+  .put("/ingresarDinero/:id/:cantidad", ingresarDinero);
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
 });

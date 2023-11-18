@@ -3,15 +3,22 @@ import hipotecaModel from "./hipoteca.ts";
 
 const addHipoteca = async (req: Request, res: Response) => {
   try {
-    const { cliente, gestor, cuota } = req.body;
-    if (!cliente || !gestor || !cuota) {
-      res.status(400).send("cliente, gestor y cuota are required");
+    const { cliente, gestor, deuda, cuota } = req.body;
+    if (!cliente || !gestor || !deuda || cuota !== 20) {
+      res.status(400).send(
+        "cliente, gestor y deuda are required and cuota must be 20 ",
+      );
+      return;
+    }
+    if (deuda > 1000000) {
+      res.status(400).send("La deuda no puede superar el millón de euros");
       return;
     }
 
     const alreadyExists = await hipotecaModel.findOne({
       cliente,
       gestor,
+      deuda,
       cuota,
     }).exec();
     if (alreadyExists) {
@@ -19,12 +26,13 @@ const addHipoteca = async (req: Request, res: Response) => {
       return;
     }
 
-    const newHipoteca = new hipotecaModel({ cliente, gestor, cuota });
+    const newHipoteca = new hipotecaModel({ cliente, gestor, deuda, cuota });
     await newHipoteca.save();
 
     res.status(200).send({
       cliente: newHipoteca.cliente,
       gestor: newHipoteca.gestor,
+      deuda: newHipoteca.deuda,
       cuota: newHipoteca.cuota,
     });
   } catch (error) {

@@ -6,6 +6,11 @@ const Schema = mongoose.Schema;
 const gestorSchema = new Schema(
   {
     name: { type: String, required: true },
+    cliente: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cliente",
+      required: true,
+    },
   },
   { timestamps: true },
 );

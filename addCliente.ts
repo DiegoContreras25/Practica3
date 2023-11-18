@@ -4,8 +4,8 @@ import clienteModel from "./cliente.ts";
 
 const addCliente = async (req: Request, res: Response) => {
   try {
-    const { name, dni } = req.body;
-    if (!name || !dni) {
+    const { name, dni, saldo } = req.body;
+    if (!name || !dni || !saldo) {
       res.status(400).send("Name and dni are required");
       return;
     }
@@ -16,12 +16,13 @@ const addCliente = async (req: Request, res: Response) => {
       return;
     }
 
-    const newCliente = new clienteModel({ name, dni });
+    const newCliente = new clienteModel({ name, dni, saldo });
     await newCliente.save();
 
     res.status(200).send({
       name: newCliente.name,
       dni: newCliente.dni,
+      saldo: newCliente.saldo,
     });
   } catch (error) {
     res.status(500).send(error.message);

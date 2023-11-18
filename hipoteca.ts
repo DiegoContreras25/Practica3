@@ -15,6 +15,7 @@ const hipotecaSchema = new Schema(
       ref: "Gestor",
       required: true,
     },
+    deuda: { type: Number, required: true },
     cuota: { type: Number, required: true },
   },
   { timestamps: true },
@@ -23,6 +24,7 @@ const hipotecaSchema = new Schema(
 export type hipotecaModelType = mongoose.Document & {
   cliente: cliente;
   gestor: gestor;
+  deuda: number;
   cuota: number;
 };
 

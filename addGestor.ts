@@ -3,9 +3,9 @@ import gestorModel from "./gestor.ts";
 
 const addGestor = async (req: Request, res: Response) => {
   try {
-    const { name } = req.body;
-    if (!name) {
-      res.status(400).send("Name is required");
+    const { name, cliente } = req.body;
+    if (!name || !cliente) {
+      res.status(400).send("Name and client is required");
       return;
     }
 
@@ -15,11 +15,12 @@ const addGestor = async (req: Request, res: Response) => {
       return;
     }
 
-    const newGestor = new gestorModel({ name });
+    const newGestor = new gestorModel({ name, cliente });
     await newGestor.save();
 
     res.status(200).send({
       name: newGestor.name,
+      cliente: newGestor.cliente,
     });
   } catch (error) {
     res.status(500).send(error.message);

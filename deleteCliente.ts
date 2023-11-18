@@ -1,19 +1,16 @@
 import { Request, Response } from "npm:express@4.18.2";
-import clienteModel from "./cliente.ts";
+import clienteSchema from "./cliente.ts";
+import { clienteModelType } from "./cliente.ts";
 
-const deleteCliente = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const client = await clienteModel.findByIdAndDelete({ id }).exec();
-    if (!client) {
-      res.status(404).send("cliente not found");
-      return;
-    }
-    res.status(200).send("cliente deleted");
-  } catch (error) {
-    res.status(404).send(error.message);
+export const deleteCliente = async (
+  req: Request<{ id: string }, {}>,
+  res: Response<string | { error: unknown }>,
+) => {
+  const id = req.params.id;
+  const subject = await clienteSchema.findByIdAndDelete(id).exec();
+  if (!subject) {
+    res.status(404).send({ error: "cliente not found" });
     return;
   }
+  res.status(200).send("cliente deleted");
 };
-
-export default deleteCliente;
