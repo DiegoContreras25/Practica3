@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/express@4"
 import { Request, Response } from "npm:express@4.18.2";
 import gestorModel from "./gestor.ts";
 
